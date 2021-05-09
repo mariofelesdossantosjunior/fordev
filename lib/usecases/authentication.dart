@@ -8,5 +8,5 @@ class AuthenticationParams {
   final String email;
   final String secret;
 
-  AuthenticationParams(this.email, this.secret);
+  AuthenticationParams({this.email, this.secret});
 }
