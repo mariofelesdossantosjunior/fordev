@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
-
-import '../../domain/usecases/usecases.dart';
+import 'package:fordev/domain/usecases/authentication.dart';
 
 import '../http/http.dart';
-
 
 class RemoteAuthentication {
   final HttpClient httpClient;
@@ -15,7 +13,20 @@ class RemoteAuthentication {
   });
 
   Future<void> auth(AuthenticationParams params) async {
-    await httpClient.request(
-        url: this.url, method: 'post', body: params.toJson());
+    var body = RemoteAuthenticationParams.fromDomain(params).toJson();
+    await httpClient.request(url: this.url, method: 'post', body: body);
   }
+}
+
+class RemoteAuthenticationParams {
+  final String email;
+  final String password;
+
+  RemoteAuthenticationParams({this.email, this.password});
+
+  factory RemoteAuthenticationParams.fromDomain(AuthenticationParams entity) =>
+      RemoteAuthenticationParams(email: entity.email, password: entity.secret);
+
+  Map<String, String> toJson() =>
+      {'email': this.email, 'password': this.password};
 }

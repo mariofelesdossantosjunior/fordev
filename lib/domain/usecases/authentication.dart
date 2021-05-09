@@ -9,7 +9,4 @@ class AuthenticationParams {
   final String secret;
 
   AuthenticationParams({this.email, this.secret});
-
-  Map<String, String> toJson() =>
-      {'email': this.email, 'password': this.secret};
 }
